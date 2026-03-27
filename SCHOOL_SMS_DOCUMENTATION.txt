@@ -1,0 +1,105 @@
+AI SMS BACKEND - COMPLETE SYSTEM DOCUMENTATION (March 2026)
+===========================================================
+
+Overview
+--------
+This School Management System (SMS) is built using Laravel 11. It's a comprehensive multi-portal application designed to manage school activities, including student management, attendance, results, fees, leave requests, and teacher/parent interaction.
+
+1. PORTALS & ROLES
+-----------------
+
+A. Super Admin Portal
+   - Complete system overview via a centralized Dashboard.
+   - Access to analytics (Total Students, Teachers, Classes, Revenue, Attendance Rate).
+   - View recent system-wide notifications.
+   - Can manage administrative roles.
+
+B. Admin Portal
+   - CRUD operations for Students, Teachers, and Parents.
+   - Fee Management: Generate fee records, add payments, and track pending dues.
+   - Teacher Attendance Tracking.
+   - Approval/Rejection of Leave Requests.
+   - Dashboard with quick access to management modules.
+
+C. Teacher Portal
+   - Dashboard showing overview of tasks and classes.
+   - Mark Student Attendance.
+   - Enter/Manage Exam Results.
+   - Task Management: Create and assign tasks to students.
+   - Leave Management: Request leave for themselves.
+   - View relevant students and subjects.
+
+D. Student Portal
+   - Personal Dashboard.
+   - Task/Assignment View: View tasks assigned by teachers and submit work.
+   - Leave Management: Request leave for personal reasons.
+   - Performance Monitoring: View results and attendance records (integrated into dashboard).
+
+E. Parent Portal
+   - Monitor multiple children associated with the parent.
+   - View child-specific Timetables (today/upcoming).
+   - Check attendance history and academic performance.
+   - Submit leave requests on behalf of children.
+   - Receive notifications regarding school updates.
+
+
+2. DATABASE STRUCTURE (MODELS)
+-----------------------------
+
+Below is an overview of the core entities in the database:
+
+- User: The foundation for all authentication. Handles roles (super_admin, admin, teacher, student, parent).
+- Role: Defines permissions and access levels for various system modules.
+- SchoolClass: Defines grade levels or sections (e.g., "Class 10-A").
+- Subject: Individual subjects taught within classes.
+- Student: Extended profile for students, linked to User, Class, and Parent.
+- Teacher: Extended profile for teachers, linked to subjects and classes.
+- ParentModel: Links a User (the parent) to multiple Students (the children).
+- Attendance: Tracks student attendance for each subject/date.
+- TeacherAttendance: Tracks daily attendance of staff members.
+- Fee: Record of expected fees for a student/class/period.
+- FeePayment: Log of actual payments made against a Fee record.
+- Exam: Record of exams scheduled (e.g., Mid-term, Final).
+- Result: Individual performance records for students in specific exams/subjects.
+- Task: Assignments given by teachers to students.
+- TaskSubmission: Tracking of student work uploaded against tasks.
+- Leave: Centralized tracking of leave applications for all users.
+- Notification: System-wide alerts for successes, warnings, or info.
+
+
+3. CORE FEATURES & IMPLEMENTATIONS
+----------------------------------
+
+A. Multi-tenant/School Support
+   - The system is architected to handle multiple roles and scoped data fetching based on the authenticated user.
+
+B. Standardized Notifications
+   - A centralized notification system using the Notification model.
+   - Includes "HasNotificationCurrency" trait for standardized price formatting.
+
+C. Multilingual Support
+   - Implementation of multilingual search logic allowing searching across listings in multiple languages (English/Arabic).
+
+D. Fee Management System
+   - Automated revenue tracking.
+   - Support for partial payments and status tracking (Pending/Paid).
+
+E. Attendance & Analytics
+   - Real-time calculation of overall attendance percentages.
+   - Visual dashboard stats using custom Blade components (x-stat-card).
+
+F. Database Backup & Reliability
+   - Integrated module for system exports/backups (CSV/JSON/PDF) for data portability.
+
+
+4. PROJECT CODE FLOW
+--------------------
+
+- Routing: Handled in `routes/web.php` with role-based middleware for security.
+- Controllers: Decoupled logic using specific Controllers for each portal (SuperAdminController, TeacherController, etc.).
+- Services: Complex logic (like fee calculations and attendance aggregation) is abstracted into Service classes (FeeService, AttendanceService).
+- Views: Clean UI using Tailwind CSS and Blade components for reusability.
+- Models & Eloquent: Heavy use of relationships (e.g., $student->parent, $teacher->classes) for efficient data retrieval.
+
+===========================================================
+End of Documentation.

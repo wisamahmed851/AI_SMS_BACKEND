@@ -48,18 +48,18 @@
             <h3 class="text-base font-bold text-slate-800">Recent Notifications</h3>
         </div>
         <div class="divide-y divide-slate-50">
-            @forelse($recentNotifications as $notification)
+            @forelse ($recentNotifications as $notif)
                 <div class="px-6 py-4 flex items-start gap-3 hover:bg-slate-50/50 transition-colors">
                     <div class="w-2 h-2 mt-2 rounded-full flex-shrink-0
-                        @if($notification->type === 'success') bg-emerald-500
-                        @elseif($notification->type === 'warning') bg-amber-500
-                        @elseif($notification->type === 'danger') bg-red-500
+                        @if($notif->type === 'success') bg-emerald-500
+                        @elseif($notif->type === 'warning') bg-amber-500
+                        @elseif($notif->type === 'danger') bg-red-500
                         @else bg-blue-500
                         @endif"></div>
                     <div>
-                        <p class="text-sm font-semibold text-slate-700">{{ $notification->title }}</p>
-                        <p class="text-xs text-slate-500 mt-0.5">{{ $notification->message }}</p>
-                        <p class="text-[10px] text-slate-400 mt-1">{{ $notification->created_at->diffForHumans() }}</p>
+                        <p class="text-sm font-semibold text-slate-700">{{ $notif->title }}</p>
+                        <p class="text-xs text-slate-500 mt-0.5">{{ $notif->message }}</p>
+                        <p class="text-[10px] text-slate-400 mt-1">{{ $notif->created_at->diffForHumans() }}</p>
                     </div>
                 </div>
             @empty
